@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Кохання для Ірки</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: radial-gradient(circle at top, #1a1a40, #000000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe Script', cursive;
+      text-align: center;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    #message {
+      font-size: 2em;
+      display: none;
+      color: #ff66cc;
+      z-index: 10;
+    }
+    #tap {
+      font-size: 2em;
+      color: #fff;
+      background: rgba(255,255,255,0.2);
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 10;
+    }
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      transform: rotate(45deg);
+      animation: floatUp 6s linear forwards;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-800px) rotate(45deg); opacity: 0; }
+    }
+
+    /* Ефект зірок */
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite alternate;
+    }
+    @keyframes twinkle {
+      from { opacity: 0.2; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body onclick="showMessage()">
+  <div id="tap">Торкнись</div>
+  <div id="message">Ірка, моя кохана, сказала що мене також любить ❤️</div>
+
+  <script>
+    let heartInterval;
+    function showMessage() {
+      document.getElementById('tap').style.display = 'none';
+      document.getElementById('message').style.display = 'block';
+
+      if (!heartInterval) {
+        heartInterval = setInterval(createHeart, 400);
+      }
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      const colors = ['red', 'hotpink', 'deeppink', 'violet', 'purple'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      heart.style.background = color;
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.top = window.innerHeight + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    // створюємо зірки
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * window.innerWidth + 'px';
+      star.style.top = Math.random() * window.innerHeight + 'px';
+      document.body.appendChild(star);
+    }
+  </script>
+</body>
+</html>
